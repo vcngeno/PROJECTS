@@ -1,0 +1,35 @@
+{
+  "name": "casaviva-website",
+  "version": "1.0.0",
+  "description": "CasaViva - Tu Hogar en América Latina - Plataforma inmobiliaria moderna",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/index.html",
+    "build": "echo 'No build process needed for static site'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "real-estate",
+    "latin-america",
+    "properties",
+    "housing",
+    "website",
+    "responsive",
+    "modern"
+  ],
+  "author": "CasaViva Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/casaviva/website.git"
+  },
+  "homepage": "https://casaviva.com",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

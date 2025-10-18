@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - CasaViva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #F7931E;
+            --accent: #00BFA5;
+            --dark: #2C3E50;
+            --light: #ECF0F1;
+            --card-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: '🏡';
+            font-size: 2.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 4rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact-form h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact-info h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(0,191,165,0.1) 0%, rgba(0,172,193,0.1) 100%);
+            border-radius: 15px;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        .contact-details h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: #666;
+        }
+
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .office-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .office-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .office-flag {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .office-name {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .office-address {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .office-phone {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .faq-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin: 4rem 0;
+        }
+
+        .faq-section h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, rgba(255,107,53,0.2) 0%, rgba(247,147,30,0.2) 100%);
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            color: #666;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5f7a;
+            color: #bdc3c7;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form,
+            .contact-info {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">CasaViva</a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="#propiedades">Propiedades</a>
+                <a href="#vehiculos">Vehículos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="about.html">Nosotros</a>
+                <a href="contact.html" style="color: #FFD700;">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>Contáctanos</h1>
+            <p>Estamos aquí para ayudarte a encontrar tu hogar ideal. ¡No dudes en contactarnos!</p>
+        </section>
+
+        <!-- Contact Form and Info -->
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Envíanos un Mensaje</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">País</label>
+                        <select id="country" name="country">
+                            <option value="">Selecciona un país</option>
+                            <option value="mx">🇲🇽 México</option>
+                            <option value="ar">🇦🇷 Argentina</option>
+                            <option value="co">🇨🇴 Colombia</option>
+                            <option value="br">🇧🇷 Brasil</option>
+                            <option value="cl">🇨🇱 Chile</option>
+                            <option value="pe">🇵🇪 Perú</option>
+                            <option value="ve">🇻🇪 Venezuela</option>
+                            <option value="ec">🇪🇨 Ecuador</option>
+                            <option value="uy">🇺🇾 Uruguay</option>
+                            <option value="py">🇵🇾 Paraguay</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Tipo de Interés</label>
+                        <select id="interest" name="interest">
+                            <option value="">Selecciona una opción</option>
+                            <option value="buy">Comprar Propiedad</option>
+                            <option value="sell">Vender Propiedad</option>
+                            <option value="rent">Rentar Propiedad</option>
+                            <option value="vehicle">Comprar Vehículo</option>
+                            <option value="service">Servicios</option>
+                            <option value="other">Otro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje *</label>
+                        <textarea id="message" name="message" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>Información de Contacto</h2>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h3>Correo Electrónico</h3>
+                        <p>info@casaviva.com<br>soporte@casaviva.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h3>Teléfono</h3>
+                        <p>+1 800 CASAVIVA<br>Lunes a Viernes: 8:00 - 20:00</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-details">
+                        <h3>Chat en Vivo</h3>
+                        <p>Disponible 24/7<br>Respuesta inmediata</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h3>Oficinas</h3>
+                        <p>15 países en América Latina<br>Encuentra la más cercana</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Offices Section -->
+        <section class="offices-section">
+            <h2 style="text-align: center; color: var(--dark); margin-bottom: 3rem; font-size: 2.5rem;">Nuestras Oficinas</h2>
+            <div class="offices-grid">
+                <div class="office-card">
+                    <div class="office-flag">🇲🇽</div>
+                    <h3 class="office-name">Ciudad de México</h3>
+                    <p class="office-address">Av. Reforma 123, Col. Centro<br>Ciudad de México, CDMX</p>
+                    <p class="office-phone">+52 55 1234 5678</p>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-flag">🇦🇷</div>
+                    <h3 class="office-name">Buenos Aires</h3>
+                    <p class="office-address">Av. Corrientes 456<br>Buenos Aires, Argentina</p>
+                    <p class="office-phone">+54 11 2345 6789</p>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-flag">🇨🇴</div>
+                    <h3 class="office-name">Bogotá</h3>
+                    <p class="office-address">Carrera 7 #123-45<br>Bogotá, Colombia</p>
+                    <p class="office-phone">+57 1 234 5678</p>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-flag">🇧🇷</div>
+                    <h3 class="office-name">São Paulo</h3>
+                    <p class="office-address">Av. Paulista 789<br>São Paulo, Brasil</p>
+                    <p class="office-phone">+55 11 2345 6789</p>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-flag">🇨🇱</div>
+                    <h3 class="office-name">Santiago</h3>
+                    <p class="office-address">Av. Providencia 321<br>Santiago, Chile</p>
+                    <p class="office-phone">+56 2 2345 6789</p>
+                </div>
+                
+                <div class="office-card">
+                    <div class="office-flag">🇵🇪</div>
+                    <h3 class="office-name">Lima</h3>
+                    <p class="office-address">Av. Larco 654<br>Lima, Perú</p>
+                    <p class="office-phone">+51 1 234 5678</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Cómo puedo publicar mi propiedad en CasaViva?
+                </div>
+                <div class="faq-answer">
+                    Es muy fácil. Simplemente regístrate en nuestra plataforma, completa el formulario de publicación con los detalles de tu propiedad, sube las fotos y nuestro equipo la revisará antes de publicarla. El proceso toma entre 24-48 horas.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Qué comisiones cobran por la venta?
+                </div>
+                <div class="faq-answer">
+                    Nuestras comisiones son muy competitivas. Para vendedores, cobramos entre 3-5% del valor de la propiedad, dependiendo del tipo y ubicación. Para compradores, nuestros servicios son completamente gratuitos.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Ofrecen financiamiento para la compra?
+                </div>
+                <div class="faq-answer">
+                    Sí, trabajamos con los principales bancos y entidades financieras de cada país para ofrecerte las mejores opciones de financiamiento. Nuestros asesores te ayudarán a encontrar la opción que mejor se adapte a tu perfil.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Cómo verifican las propiedades?
+                </div>
+                <div class="faq-answer">
+                    Todas las propiedades pasan por un riguroso proceso de verificación que incluye: verificación legal de documentos, inspección física por parte de nuestros agentes certificados, y validación de la información proporcionada por el vendedor.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Puedo programar visitas virtuales?
+                </div>
+                <div class="faq-answer">
+                    ¡Por supuesto! Ofrecemos tours virtuales 360° para muchas de nuestras propiedades. También puedes programar videollamadas en tiempo real con nuestros agentes para hacer visitas virtuales personalizadas.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CasaViva</h3>
+                <p>Tu plataforma de confianza para encontrar propiedades y productos en América Latina.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#propiedades">Propiedades</a></li>
+                    <li><a href="#vehiculos">Vehículos</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="about.html">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Países</h3>
+                <ul>
+                    <li><a href="#">🇲🇽 México</a></li>
+                    <li><a href="#">🇦🇷 Argentina</a></li>
+                    <li><a href="#">🇨🇴 Colombia</a></li>
+                    <li><a href="#">🇧🇷 Brasil</a></li>
+                    <li><a href="#">🇨🇱 Chile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>📧 info@casaviva.com</li>
+                    <li>📞 +1 800 CASAVIVA</li>
+                    <li>💬 Chat en vivo 24/7</li>
+                    <li>📍 Oficinas en 15 países</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CasaViva. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.message) {
+                alert('Por favor, completa todos los campos obligatorios.');
+                return;
+            }
+            
+            // Simulate form submission
+            alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+            this.reset();
+        });
+
+        // FAQ toggle functionality
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

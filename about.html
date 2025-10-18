@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - CasaViva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #F7931E;
+            --accent: #00BFA5;
+            --dark: #2C3E50;
+            --light: #ECF0F1;
+            --card-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: '🏡';
+            font-size: 2.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 4rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .content-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .team-role {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .value-card {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0,191,165,0.1) 0%, rgba(0,172,193,0.1) 100%);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5f7a;
+            color: #bdc3c7;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">CasaViva</a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="#propiedades">Propiedades</a>
+                <a href="#vehiculos">Vehículos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="about.html" style="color: #FFD700;">Nosotros</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>Conoce CasaViva</h1>
+            <p>Somos la plataforma líder en América Latina para encontrar tu hogar ideal, con más de 10 años conectando personas con sus sueños inmobiliarios.</p>
+        </section>
+
+        <!-- About Section -->
+        <section class="content-section">
+            <h2>Nuestra Historia</h2>
+            <p>Fundada en 2014, CasaViva nació con la visión de revolucionar el mercado inmobiliario en América Latina. Comenzamos como una pequeña startup en Ciudad de México con el sueño de hacer más accesible y transparente el proceso de compra y venta de propiedades.</p>
+            
+            <p>Hoy, después de una década de crecimiento constante, operamos en más de 15 países de la región, hemos facilitado más de 50,000 transacciones exitosas y contamos con un equipo de más de 500 profesionales especializados en bienes raíces.</p>
+            
+            <p>Nuestra misión es simple pero poderosa: democratizar el acceso a la vivienda de calidad en América Latina, utilizando tecnología de vanguardia y un enfoque centrado en el cliente.</p>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="content-section">
+            <h2>Números que Hablan</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Propiedades Vendidas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Países</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Agentes Especializados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfacción del Cliente</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="content-section">
+            <h2>Nuestros Valores</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3 class="value-title">Transparencia</h3>
+                    <p>Creemos en la honestidad total en cada transacción. No hay sorpresas, solo información clara y precios justos.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <h3 class="value-title">Innovación</h3>
+                    <p>Utilizamos las últimas tecnologías para hacer el proceso de compra más fácil, rápido y seguro.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌎</div>
+                    <h3 class="value-title">Compromiso Regional</h3>
+                    <p>Entendemos las particularidades de cada mercado local y adaptamos nuestros servicios en consecuencia.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💎</div>
+                    <h3 class="value-title">Calidad</h3>
+                    <p>Solo trabajamos con propiedades verificadas y agentes certificados para garantizar la mejor experiencia.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="content-section">
+            <h2>Nuestro Equipo</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" alt="Carlos Mendoza" class="team-photo">
+                    <h3 class="team-name">Carlos Mendoza</h3>
+                    <p class="team-role">CEO & Fundador</p>
+                    <p>Con más de 15 años en el sector inmobiliario, Carlos lidera la visión estratégica de CasaViva.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300" alt="María González" class="team-photo">
+                    <h3 class="team-name">María González</h3>
+                    <p class="team-role">Directora de Operaciones</p>
+                    <p>Experta en gestión de equipos y procesos, María asegura la excelencia operativa en todos los mercados.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300" alt="Roberto Silva" class="team-photo">
+                    <h3 class="team-name">Roberto Silva</h3>
+                    <p class="team-role">CTO</p>
+                    <p>Líder tecnológico que impulsa la innovación digital y la experiencia del usuario en nuestra plataforma.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300" alt="Ana Rodríguez" class="team-photo">
+                    <h3 class="team-name">Ana Rodríguez</h3>
+                    <p class="team-role">Directora de Marketing</p>
+                    <p>Especialista en marketing digital y comunicación, Ana conecta CasaViva con miles de clientes potenciales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="content-section">
+            <h2>Nuestra Misión y Visión</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="padding: 2rem; background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%); border-radius: 15px;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem;">🎯 Misión</h3>
+                    <p>Facilitar el acceso a la vivienda de calidad en América Latina mediante tecnología innovadora, transparencia total y un servicio excepcional que conecta a las personas con sus hogares ideales.</p>
+                </div>
+                <div style="padding: 2rem; background: linear-gradient(135deg, rgba(0,191,165,0.1) 0%, rgba(0,172,193,0.1) 100%); border-radius: 15px;">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem;">🔮 Visión</h3>
+                    <p>Ser la plataforma inmobiliaria más confiable y tecnológicamente avanzada de América Latina, reconocida por transformar la experiencia de compra y venta de propiedades en la región.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CasaViva</h3>
+                <p>Tu plataforma de confianza para encontrar propiedades y productos en América Latina.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#propiedades">Propiedades</a></li>
+                    <li><a href="#vehiculos">Vehículos</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="about.html">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Países</h3>
+                <ul>
+                    <li><a href="#">🇲🇽 México</a></li>
+                    <li><a href="#">🇦🇷 Argentina</a></li>
+                    <li><a href="#">🇨🇴 Colombia</a></li>
+                    <li><a href="#">🇧🇷 Brasil</a></li>
+                    <li><a href="#">🇨🇱 Chile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>📧 info@casaviva.com</li>
+                    <li>📞 +1 800 CASAVIVA</li>
+                    <li>💬 Chat en vivo 24/7</li>
+                    <li>📍 Oficinas en 15 países</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CasaViva. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
