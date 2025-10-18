@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CasaViva - Tu Hogar en América Latina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #F7931E;
+            --accent: #00BFA5;
+            --dark: #2C3E50;
+            --light: #ECF0F1;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::before {
+            content: '🏡';
+            font-size: 2.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00BFA5, #00acc1);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,191,165,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,191,165,0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .search-container input,
+        .search-container select {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-container input:focus,
+        .search-container select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+        }
+
+        /* Category Selector */
+        .category-selector {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .category-btn:hover::before {
+            left: 0;
+        }
+
+        .category-btn:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+        }
+
+        /* Product Grid */
+        .products-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #00BFA5, #00acc1);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(0,191,165,0.1) 0%, rgba(0,172,193,0.1) 100%);
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5f7a;
+            color: #bdc3c7;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0,191,165,0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0,191,165,0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0,191,165,0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">CasaViva</a>
+            <div class="nav-links">
+                <a href="#propiedades">Propiedades</a>
+                <a href="#vehiculos">Vehículos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#nosotros">Nosotros</a>
+                <button class="btn-primary" onclick="showLoginModal()">Iniciar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Tu Nuevo Hogar Te Espera</h1>
+        <p>Encuentra propiedades exclusivas en toda América Latina</p>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Ciudad, zona o código postal...">
+            <select>
+                <option>Tipo de Propiedad</option>
+                <option>Casa</option>
+                <option>Departamento</option>
+                <option>Terreno</option>
+                <option>Local Comercial</option>
+            </select>
+            <select>
+                <option>Precio Máximo</option>
+                <option>$100,000</option>
+                <option>$250,000</option>
+                <option>$500,000</option>
+                <option>$1,000,000+</option>
+            </select>
+            <button class="btn-primary" onclick="performSearch()">🔍 Buscar</button>
+        </div>
+    </section>
+
+    <!-- Category Selector -->
+    <div class="category-selector">
+        <button class="category-btn active" onclick="filterCategory('all')">🏠 Todas</button>
+        <button class="category-btn" onclick="filterCategory('casas')">🏡 Casas</button>
+        <button class="category-btn" onclick="filterCategory('departamentos')">🏢 Departamentos</button>
+        <button class="category-btn" onclick="filterCategory('terrenos')">🌳 Terrenos</button>
+        <button class="category-btn" onclick="filterCategory('vehiculos')">🚗 Vehículos</button>
+        <button class="category-btn" onclick="filterCategory('servicios')">💼 Servicios</button>
+    </div>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <h2 class="section-title">Propiedades Destacadas</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- Product Card 1 -->
+            <div class="product-card" onclick="viewProduct(1)">
+                <div style="position: relative; overflow: hidden; height: 250px;">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" alt="Casa Moderna" class="product-image">
+                    <span class="product-badge">NUEVO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-location">📍 Ciudad de México, México</div>
+                    <h3 class="product-title">Casa Moderna en Polanco</h3>
+                    <div class="product-price">$850,000 USD</div>
+                    <div class="product-features">
+                        <span class="feature">🛏️ 4 Habitaciones</span>
+                        <span class="feature">🚿 3 Baños</span>
+                        <span class="feature">📐 350 m²</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-secondary">💬 Contactar</button>
+                        <button class="btn-secondary">❤️ Favoritos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="product-card" onclick="viewProduct(2)">
+                <div style="position: relative; overflow: hidden; height: 250px;">
+                    <img src="https://images.unsplash.com/photo-1565538420870-da08ff96a207?w=400" alt="Departamento Lujo" class="product-image">
+                    <span class="product-badge">DESTACADO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-location">📍 Buenos Aires, Argentina</div>
+                    <h3 class="product-title">Penthouse Puerto Madero</h3>
+                    <div class="product-price">$1,200,000 USD</div>
+                    <div class="product-features">
+                        <span class="feature">🛏️ 3 Habitaciones</span>
+                        <span class="feature">🚿 2 Baños</span>
+                        <span class="feature">📐 280 m²</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-secondary">💬 Contactar</button>
+                        <button class="btn-secondary">❤️ Favoritos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card" onclick="viewProduct(3)">
+                <div style="position: relative; overflow: hidden; height: 250px;">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400" alt="Villa Playa" class="product-image">
+                    <span class="product-badge">OFERTA</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-location">📍 Cartagena, Colombia</div>
+                    <h3 class="product-title">Villa Frente al Mar</h3>
+                    <div class="product-price">$750,000 USD</div>
+                    <div class="product-features">
+                        <span class="feature">🛏️ 5 Habitaciones</span>
+                        <span class="feature">🚿 4 Baños</span>
+                        <span class="feature">📐 450 m²</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-secondary">💬 Contactar</button>
+                        <button class="btn-secondary">❤️ Favoritos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 - Vehicle -->
+            <div class="product-card" onclick="viewProduct(4)">
+                <div style="position: relative; overflow: hidden; height: 250px;">
+                    <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=400" alt="SUV Premium" class="product-image">
+                    <span class="product-badge">VEHÍCULO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-location">📍 São Paulo, Brasil</div>
+                    <h3 class="product-title">Mercedes-Benz GLE 2023</h3>
+                    <div class="product-price">$95,000 USD</div>
+                    <div class="product-features">
+                        <span class="feature">⚙️ Automático</span>
+                        <span class="feature">⛽ Híbrido</span>
+                        <span class="feature">🚗 5,000 km</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-secondary">💬 Contactar</button>
+                        <button class="btn-secondary">❤️ Favoritos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="product-card" onclick="viewProduct(5)">
+                <div style="position: relative; overflow: hidden; height: 250px;">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400" alt="Casa Campo" class="product-image">
+                    <span class="product-badge">EXCLUSIVO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-location">📍 Santiago, Chile</div>
+                    <h3 class="product-title">Casa de Campo Las Condes</h3>
+                    <div class="product-price">$650,000 USD</div>
+                    <div class="product-features">
+                        <span class="feature">🛏️ 4 Habitaciones</span>
+                        <span class="feature">🚿 3 Baños</span>
+                        <span class="feature">📐 380 m²</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-secondary">💬 Contactar</button>
+                        <button class="btn-secondary">❤️ Favoritos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="product-card" onclick="viewProduct(6)">
+                <div style="position: relative; overflow: hidden; height: 250px;">
+                    <img src="https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=400" alt="Loft Moderno" class="product-image">
+                    <span class="product-badge">NUEVO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-location">📍 Lima, Perú</div>
+                    <h3 class="product-title">Loft Moderno Miraflores</h3>
+                    <div class="product-price">$320,000 USD</div>
+                    <div class="product-features">
+                        <span class="feature">🛏️ 2 Habitaciones</span>
+                        <span class="feature">🚿 2 Baños</span>
+                        <span class="feature">📐 120 m²</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-secondary">💬 Contactar</button>
+                        <button class="btn-secondary">❤️ Favoritos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">¿Por qué elegir CasaViva?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Mejor Selección</h3>
+                <p>Las propiedades más exclusivas y los mejores productos de toda América Latina</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Compra Segura</h3>
+                <p>Transacciones protegidas y verificación completa de propiedades y vendedores</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌎</div>
+                <h3 class="feature-title">Cobertura Regional</h3>
+                <p>Presencia en más de 15 países de América Latina con soporte local</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Mejores Precios</h3>
+                <p>Negociamos los mejores precios y opciones de financiamiento para ti</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Tecnología Avanzada</h3>
+                <p>Tours virtuales 360°, realidad aumentada y firma digital de documentos</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">Asesoría Experta</h3>
+                <p>Equipo de profesionales inmobiliarios con experiencia internacional</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CasaViva</h3>
+                <p>Tu plataforma de confianza para encontrar propiedades y productos en América Latina.</p>
+                <div style="margin-top: 1rem;">
+                    <span style="font-size: 1.5rem; margin-right: 10px;">📱</span>
+                    <span style="font-size: 1.5rem; margin-right: 10px;">💻</span>
+                    <span style="font-size: 1.5rem; margin-right: 10px;">🏢</span>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#">Propiedades</a></li>
+                    <li><a href="#">Vehículos</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Publicar Anuncio</a></li>
+                    <li><a href="#">Agentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Países</h3>
+                <ul>
+                    <li><a href="#">🇲🇽 México</a></li>
+                    <li><a href="#">🇦🇷 Argentina</a></li>
+                    <li><a href="#">🇨🇴 Colombia</a></li>
+                    <li><a href="#">🇧🇷 Brasil</a></li>
+                    <li><a href="#">🇨🇱 Chile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>📧 info@casaviva.com</li>
+                    <li>📞 +1 800 CASAVIVA</li>
+                    <li>💬 Chat en vivo 24/7</li>
+                    <li>📍 Oficinas en 15 países</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CasaViva. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Category filtering functionality
+        function filterCategory(category) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Filter products based on category
+            const products = document.querySelectorAll('.product-card');
+            products.forEach(product => {
+                if (category === 'all') {
+                    product.style.display = 'block';
+                } else {
+                    // Simple category filtering based on product content
+                    const productText = product.textContent.toLowerCase();
+                    let shouldShow = false;
+                    
+                    switch(category) {
+                        case 'casas':
+                            shouldShow = productText.includes('casa') || productText.includes('villa');
+                            break;
+                        case 'departamentos':
+                            shouldShow = productText.includes('departamento') || productText.includes('penthouse') || productText.includes('loft');
+                            break;
+                        case 'terrenos':
+                            shouldShow = productText.includes('terreno');
+                            break;
+                        case 'vehiculos':
+                            shouldShow = productText.includes('mercedes') || productText.includes('vehículo');
+                            break;
+                        case 'servicios':
+                            shouldShow = productText.includes('servicio');
+                            break;
+                    }
+                    
+                    product.style.display = shouldShow ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.querySelector('.search-container input');
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.trim() === '') {
+                alert('Por favor, ingresa un término de búsqueda');
+                return;
+            }
+            
+            // Simple search implementation
+            const products = document.querySelectorAll('.product-card');
+            let foundResults = false;
+            
+            products.forEach(product => {
+                const productText = product.textContent.toLowerCase();
+                const shouldShow = productText.includes(searchTerm);
+                product.style.display = shouldShow ? 'block' : 'none';
+                if (shouldShow) foundResults = true;
+            });
+            
+            if (!foundResults) {
+                alert('No se encontraron resultados para tu búsqueda');
+            }
+        }
+
+        // Product view functionality
+        function viewProduct(productId) {
+            alert(`Viendo detalles del producto ${productId}. Esta funcionalidad se implementará en la página de detalles.`);
+        }
+
+        // Login modal functionality
+        function showLoginModal() {
+            alert('Modal de inicio de sesión. Esta funcionalidad se implementará próximamente.');
+        }
+
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add search on Enter key press
+        document.querySelector('.search-container input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Add favorite functionality
+        document.querySelectorAll('.btn-secondary').forEach(btn => {
+            if (btn.textContent.includes('❤️')) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.style.background = this.style.background === 'rgb(255, 107, 53)' ? '' : 'var(--primary)';
+                    this.style.color = this.style.color === 'white' ? '' : 'white';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
